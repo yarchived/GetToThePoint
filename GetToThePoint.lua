@@ -4,15 +4,24 @@ local origClicks = {}
 local questList = {}
 local _G = getfenv(0)
 
-local L = {
-	["No longer auto turning in \"%s\"."] = "No longer auto turning in \"%s\".",
-	["No longer auto skipping \"%s\"."] = "No longer auto skipping \"%s\".",
-	["No longer auto accepting \"%s\"."] = "No longer auto accepting \"%s\".",
+local L = setmetatable(GetLocale() == "zhCN" and {
+	["No longer auto turning in \"%s\"."] = "不再自动完成: \"%s\".",
+	["No longer auto skipping \"%s\"."] = "不再自动跳过 \"%s\".",
+	["No longer auto accepting \"%s\"."] = "不再自动接受 \"%s\".",
 	
-	["Now auto accepting \"%s\". Hold CTRL and click the option again to stop auto accepting."] = "Now auto accepting \"%s\". Hold CTRL and click the option again to stop auto accepting.",
-	["Now auto skipping \"%s\". Hold ALT and click the option again to remove it."] = "Now auto skipping \"%s\". Hold ALT and click the option again to remove it.",
-	["Now auto turning in \"%s\". Hold ALT and click the option again to remove it."] = "Now auto turning in \"%s\". Hold ALT and click the option again to remove it.",
-}
+	["Now auto accepting \"%s\". Hold CTRL and click the option again to stop auto accepting."] = "自动接受 \"%s\". 按住Ctrl点击任务不再自动接受.",
+	["Now auto skipping \"%s\". Hold ALT and click the option again to remove it."] = "自动跳过 \"%s\". 按住Alt点击将不再自动跳过.",
+	["Now auto turning in \"%s\". Hold ALT and click the option again to remove it."] = "自动完成 \"%s\". 按住Alt点击将不再自动完成.",
+} or GetLocale() == "zhTW" and {
+	["No longer auto turning in \"%s\"."] = "不再自動完成: \"%s\".",
+	["No longer auto skipping \"%s\"."] = "不再自動跳過 \"%s\".",
+	["No longer auto accepting \"%s\"."] = "不再自動接受 \"%s\".",
+
+	["Now auto accepting \"%s\". Hold CTRL and click the option again to stop auto accepting."] = "自動接受 \"%s\". 按住Ctrl點擊任務不再自動接受.",
+	["Now auto skipping \"%s\". Hold ALT and click the option again to remove it."] = "自動跳過 \"%s\". 按住Alt點擊將不再自動跳過.",
+	["Now auto turning in \"%s\". Hold ALT and click the option again to remove it."] = "自動完成 \"%s\". 按住Alt點擊將不再自動完成.",
+} or {}, {__index=function(t,i) return i end})
+
 
 
 -- GTTP_List = Auto skip/turnin / GTTP_Accept = Auto accept
